@@ -1,5 +1,5 @@
 {
-  "name": "output/output",
+  "name": "output/phpoutput",
   "description": "The output to help encoding, decoding and modify simple output format.",
   "keywords": ["output", "response"],
   "type": "library",
