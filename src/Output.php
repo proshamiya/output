@@ -9,7 +9,7 @@ use Output\Codec;
 class Output extends Codec implements OutputInterface
 {
   /**
-   * The $original variable represents the original data
+   * The $original variable represents the original current data
    * @var mixed
    */
   protected $original;
@@ -81,6 +81,25 @@ class Output extends Codec implements OutputInterface
   {
     $this->prev = $value;
     return $this;
+  }
+
+  /**
+   * Prints human-readable information about a variable
+   * 
+   * @param bool $returns
+   * @return mixed
+   */
+  public function print(bool $returns = false)
+  {
+    return \print_r($this->value);
+  }
+
+  /**
+   * Equivalent to exit/die Stop next execute PHP Code
+   */
+  public function die()
+  {
+    die($this->toString());
   }
 
   /**
