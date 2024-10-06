@@ -9,7 +9,7 @@ use Output\Codec;
 class Output extends Codec implements OutputInterface
 {
   /**
-   * 
+   * The $original variable represents the original data
    * @var mixed
    */
   protected $original;
@@ -49,8 +49,10 @@ class Output extends Codec implements OutputInterface
   }
 
   /**
+   * Make a primary returnable value switch to current and previous output data
+   * 
    * @param bool $currentValue
-   * @return mixed
+   * @return \Output\Output
    */
   public function makePrimary(bool $currentValue = true)
   {
@@ -60,6 +62,7 @@ class Output extends Codec implements OutputInterface
   }
 
   /**
+   * Returns the original data
    * 
    * @return mixed
    */
@@ -69,6 +72,8 @@ class Output extends Codec implements OutputInterface
   }
 
   /**
+   * SET the previous value, Its used to getPrev with getting previous data
+   * 
    * @param mixed $value
    * @return \Output\Output
    */
@@ -79,7 +84,7 @@ class Output extends Codec implements OutputInterface
   }
 
   /**
-   * 
+   * Returns the current data value with original dataType, Its used to get final value
    * 
    * @return mixed
    */
@@ -89,7 +94,7 @@ class Output extends Codec implements OutputInterface
   }
 
   /**
-   * 
+   * Returns the previous data value with original dataType, Its used to get prev value
    * 
    * @return mixed
    */
@@ -99,7 +104,7 @@ class Output extends Codec implements OutputInterface
   }
 
   /**
-   * 
+   * Reset the current value and temp value, And assign prev in previous current value
    * 
    * @param mixed $newValue
    * @return \Output\Output
@@ -112,7 +117,8 @@ class Output extends Codec implements OutputInterface
   }
 
   /**
-   * 
+   * Returns always all types of data to string format, Its used to get data only String format
+   * Don't get output with original dataType,
    * 
    * @return string
    */
@@ -122,6 +128,8 @@ class Output extends Codec implements OutputInterface
   }
 
   /**
+   * Returns always all types of data to string format, Its used to get data only String format
+   * Don't get output with original dataType,
    * 
    * @param mixed $value
    * @return string

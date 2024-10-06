@@ -34,6 +34,7 @@ class Codec implements CodecInterface
 
   /**
    * 
+   * 
    * @param mixed $args [optional]
    * @return \Codec\Codec
    */
