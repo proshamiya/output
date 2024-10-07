@@ -36,19 +36,33 @@ class Output extends Codec implements OutputInterface
   protected $temp;
 
   /**
-   * 
+   * Create Output instance and call parent::__construct($value) of \Output\Codec class
    * 
    * @param mixed $value
    * @param mixed $prev
    * 
    * @return void
    */
-  public function __construct($value, $prev = '')
+  public function __construct($value, $prev = null)
   {
-    $this->prev     = $this->prev ?? $prev;
     $this->original = $value;
     $this->value    = $value;
+    $this->prev     = $prev;
     parent::__construct($value);
+  }
+
+  /**
+   * Returns the current data value with original dataType,
+   * Its used to get final value
+   * If given param $key then return existing key arr-val
+   * if value is Associative array.
+   * 
+   * @param string $key
+   * @return mixed
+   */
+  protected function get(?string $key = null)
+  {
+    return \is_array($this->value) && $key != null ? $this->value[$key] ?? false : $this->value;
   }
 
   /**
@@ -57,7 +71,7 @@ class Output extends Codec implements OutputInterface
    * @param bool $currentValue
    * @return \Output\Output
    */
-  public function makePrimary(bool $currentValue = true)
+  protected function makePrimary(bool $currentValue = true)
   {
     $this->temp  = !$currentValue ? $this->value : $this->temp;
     $this->value = $currentValue ? $this->temp ?? $this->value : $this->prev;
@@ -69,7 +83,7 @@ class Output extends Codec implements OutputInterface
    * 
    * @return mixed
    */
-  public function getOriginal()
+  protected function getOriginal()
   {
     return $this->original;
   }
@@ -80,7 +94,7 @@ class Output extends Codec implements OutputInterface
    * @param mixed $value
    * @return \Output\Output
    */
-  public function setPrev($value = '')
+  protected function setPrev($value)
   {
     $this->prev = $value;
     return $this;
@@ -99,6 +113,7 @@ class Output extends Codec implements OutputInterface
 
   /**
    * Equivalent to exit/die Stop next execute PHP Code
+   * @return void
    */
   public function die()
   {
@@ -106,23 +121,24 @@ class Output extends Codec implements OutputInterface
   }
 
   /**
-   * Returns the current data value with original dataType, Its used to get final value
-   * 
-   * @return mixed
-   */
-  public function get()
-  {
-    return $this->value;
-  }
-
-  /**
    * Returns the previous data value with original dataType, Its used to get prev value
    * 
    * @return mixed
    */
-  public function getPrev()
+  protected function getPrev()
   {
     return $this->prev;
+  }
+
+  /**
+   * Method finish work as same get()
+   * Returns the previous data value with original dataType, Its used to get prev value
+   * 
+   * @return mixed
+   */
+  public function finish()
+  {
+    return $this->get();
   }
 
   /**
@@ -131,7 +147,7 @@ class Output extends Codec implements OutputInterface
    * @param mixed $newValue
    * @return \Output\Output
    */
-  public function reset($newValue = '')
+  protected function reset($newValue)
   {
     $this->prev = $this->value;
     $this->temp = '';
@@ -156,7 +172,7 @@ class Output extends Codec implements OutputInterface
    * @param mixed $value
    * @return string
    */
-  public static function String($value = '') : string
+  protected static function String($value = '') : string
   {
     return \is_array($value) ? \implode(',', $value) : (string) (\is_object($value) ? $value::class : $value);
   }

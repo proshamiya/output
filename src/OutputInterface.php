@@ -37,6 +37,14 @@ interface OutputInterface
   public function get();
 
   /**
+   * Method finish work as same get()
+   * Returns the previous data value with original dataType, Its used to get prev value
+   * 
+   * @return mixed
+   */
+  public function finish();
+
+  /**
    * Returns the previous data value with original dataType, Its used to get prev value
    * 
    * @return mixed
@@ -49,7 +57,21 @@ interface OutputInterface
    * @param mixed $value
    * @return \Output\Output
    */
-  public function setPrev($value = '');
+  public function setPrev($value);
+
+  /**
+   * Prints human-readable information about a variable
+   * 
+   * @param bool $returns
+   * @return mixed
+   */
+  public function print(bool $returns = false);
+
+  /**
+   * Equivalent to exit/die Stop next execute PHP Code
+   * @return void
+   */
+  public function die();
 
   /**
    * Returns always all types of data to string format, Its used to get data only String format
@@ -66,6 +88,6 @@ interface OutputInterface
    * @param mixed $value
    * @return string
    */
-  public static function String($value = '') : string;
+  public static function String($value) : string;
 }
 ?>
