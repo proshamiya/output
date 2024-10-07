@@ -39,10 +39,13 @@ class Output extends Codec implements OutputInterface
    * 
    * 
    * @param mixed $value
+   * @param mixed $prev
+   * 
    * @return void
    */
-  public function __construct($value = '')
+  public function __construct($value, $prev = '')
   {
+    $this->prev     = $this->prev ?? $prev;
     $this->original = $value;
     $this->value    = $value;
     parent::__construct($value);
